@@ -1,3 +1,27 @@
+import config from '@/config'
+export function get (url, data) {
+  return new Promise((resolve, reject) => {
+    wx.request({
+      url: config.host + url,
+      data,
+      success (res) {
+        if (res.data.code === 0) {
+          resolve(res.data.data)
+        } else {
+          reject(res.data)
+        }
+      }
+    })
+  })
+}
+
+export function showSuccess (text, icon) {
+  wx.showToast({
+    title: text,
+    icon: icon
+  })
+}
+
 function formatNumber (n) {
   const str = n.toString()
   return str[1] ? str : `0${str}`
